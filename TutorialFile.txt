@@ -1,2 +1,11 @@
 ciao sono un file di testo 
 new line form fix
+new line from dev
+
+
+#dobbiamo modificare il testo e poi eliminare le righe create da git 
+#<<<<<<< HEAD
+#new line form fix
+#======= gli uguali dividono il master da quello che vogliamo unire
+#new line from dev
+#>>>>>>> dev
