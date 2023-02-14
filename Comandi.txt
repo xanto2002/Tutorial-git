@@ -1,0 +1,72 @@
+	Working Directory   --"git add <file>"-->   Stanging area(index)   --"git commit <file>"-->   History(repository) 
+
+git init:	inizializza repository, crea cartella .git nella cartella in cui ci troviamo
+
+git add <file>: 		aggiungere nell'index di git(staging area) quindi mettere il file assieme agli altri che successivamente potranno essere committati
+git restore --staged <file>:	operazione inversa di git add --> rimuovere dall'index di git(staging area) il file specificato
+
+git status:	ci permette di sapere se c'è qualche file nella caìrtella che non è ancora stato aggiunto all index(git add), o anche se ciu sono file da committare(git commit)
+
+#GIT COMMIT
+git commit <file>:	salviamo il nella repository per avere quella versione del file salvata nello storico
+git commit --amend:	ci permette di modificare il messaggio dell'ultima commit aprendo l'editor 
+
+git commit -am "<messaggio>":	unione tra git add e git commit
+
+
+git reset:	ci permette di cancellare lo storico della commit. Attenzione: usare solo se stiamo lavorando in local e/o non abbiamo ancora pushato su un server remoto. Se ad esempio la commit è stata fatta da un collega 
+		questa verrà eliminata.
+		git reset accetta 3 diverse opzioni:
+			--soft: rimuove solo la commit ma lascia lasciando il file nella Stanging Area(dopo la git add in pratica)
+			--mixed: (di default quindi può anche non essere specificato) rimuoviamo dalla history sia la commit che la add quindi il file è presente solo nella Working Directory
+			--hard: cancelliamo i file che non sono presenti nella ultima commit
+		per indicare la commit abbiamo 2 modi:
+			1.utilizzando l'id della commit: facciomo git log per vedere gli id e compiamo quello della commit che ci interessa(es. git reset --soft <id>)
+			2.utilizzando il puntatore: a secondo di dove si trova il puntatore, definiamo di quante commit vogliamo tornare indietro 
+				(es. "git reset --soft HEAD^": una commit,     "git reset --soft HEAD~1": una commit,     "git reset --soft HEAD^^": due commit,     "git reset --soft HEAD~2": due commit)
+
+.gitignore: non è un comando ma un file che possiamo creare per scrivere dento i file che non vogliamo siano visibili da git.
+	nel file possiamo scrivere il nome del file, *.log per ignorare tutti i file.log, !<nome file> per non ignorare un file.
+	Possiamo anche scrivere il nome di una cartella.
+	Possiamo inserire commenti nel file .gitignore utilizzando #
+
+#GIT LOG
+git log:	ci permette di visualizzare tutte le commit(ordine dalla più recente). ps: possiamo aggiungere comandi come: --oneline(stampa una commit per riga), --reverse(stampa le commit dalla meno recente)
+git log --all --decorate --oneline --graph:	 ci permette di visualizzare le commit, i branch e il branch in cui ci troviamo è seganto con una *
+
+#BRANCH
+git branch <nome_nuovo_Branch>:		ci permette di creare dei branch. per ora sono semplici etichette. Ps: git branch ci permette di vedere tutti i branch
+git checkout <nomeBranch>: 	spostare puntatore da un branch a un altro
+git merge <Branch_da_mergiare>: 	prima di fare il marge dobbiamo andare nel branch in cui vogliamo che vengano inserite le modifiche
+git diff <primoBranch>..<secondoBranch>: mostra le differenze tra i branch
+git brach --merged: possiamo vedere i merge che sono stati uniti(per controlalre se il merge è stato eseguito ed eliminare i branch di cui non abbiamo più bisogno)
+git brach -d <Branch_da_eliminare>: eliminare un branch di cui abbiamo fatto un merge
+git brach -D <Branch_da_eliminare>: eliminare un branch di cui non abbiamo fatto un merge
+git checkout -b bugFix: crea un nuovo branch ed effettua il checkout in quel branch(unione di "git branch <nome_nuovo_Branch>" e "git checkout <nomeBranch>")
+
+#GIT-HUB
+
+git remote add origin <link>:	inserire nella configurazione di git il link di un server remoto da collegare per inviare o prendere file
+				Possiamo collegare la repository a: una cartella del pc, un server di una rete privata o su un server remoto come git-hub
+				origin: la parola origin sara abbinata al link che abbiamo inserito, cosi facendo non dovremo riscrivere tutto il link per fare un push o pull
+				Se volessimo collegare altri link, possiamo semplicemente scrivere altri nomi
+git remote:	permette di visualizzare le parole(es.origin) salvate in precedenza
+git remote -v:	permette di visualizzare le parole(es.origin) salvate in precedenza e i rispettivi URL
+git remote show <parola-link>: ci permette di visualizzare le config di un server remoto indirizzato dalla parola(es. origin)
+git remote rename origin <nuova-parola>:	cambiare la parola indirizzata al link
+git remote remove origin:	elimina la parola e l'indirizzamento al link
+
+git push -u <parola-link> <nome-branch>:	permette di fare l'upload del nostro codice sul server remoto(Es. git push -u origin main)
+						-u origin main: ci permette di inserire il link in origin con il branch main(master) di default come destinazione
+git push:	permette di effettuare l'upoload del codice dopo aver già effettuato un upload con "git push -u origin main"
+
+git fetch:	sincronizza le commit sul pc con quelle effettuate nel server
+		se siamo nel branch in cui sono state fatte le commit ci verra indicato di quante commit siamo indietro nel terminale
+		#git merge origin/master: fare il merge tra il branch sul server e il branch nel pc
+git pull:	sincronizza e mergia la repository in locale con quella del server(unisce "git fetch" e "git merge origin/master")
+git clone <link> <eventuale_nuovo_nome>:	ci permette di clonare una repository locale o su un server
+			
+
+
+
+
